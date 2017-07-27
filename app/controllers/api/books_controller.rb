@@ -1,9 +1,4 @@
 class Api::BooksController < ApplicationController
-  def index
-    @books = Book.all
-
-    render json: @posts.to_json
-  end
   def show
   #render json: @post.to_json(:only => [:id ] )
     @book = Book.find(params[:id])
