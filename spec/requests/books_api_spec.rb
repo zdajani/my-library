@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::BooksController, type: :request do
   describe "Books API" do    
     it 'retrieves a specific book' do 
-      book = create(:book)
+      book = create(:book_with_author)
       get "/api/books/#{book.id}"
       expect(response).to have_http_status(:success)
       
@@ -26,7 +26,7 @@ RSpec.describe Api::BooksController, type: :request do
     end
     
     it 'returns all books' do 
-      create_list(:book, 10)
+      create_list(:book_with_author, 10)
       get "/api/books"
       
       expect(response).to have_http_status(:success)
