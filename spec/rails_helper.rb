@@ -6,7 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
-require 'support/request_helpers.rb'
+# require 'support/request_helpers.rb'
 require 'support/api_helper.rb'
 require 'support/database_cleaner.rb'
 # Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
@@ -36,7 +36,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  config.include Requests::JsonHelpers, type: :request
+  # config.include Requests::JsonHelpers, type: :request
   config.include ApiHelper, :type=>:api
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

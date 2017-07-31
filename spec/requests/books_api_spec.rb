@@ -1,15 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe Api::BooksController, type: :api do
-  
-  describe "Books API" do
-  
-  let(:book) { create(:book) }
+RSpec.describe Api::BooksController, type: :request do
+  describe "Books API" do    
     it 'retrieves a specific book' do 
-      get "api/books/#{book.id}",:formate =>:json
-      expect(last_response.status).to eql(200)
-      hash_body = JSON.parse(last_response.body).with_indifferent_access
-  
+      book = create(:book)
+      get "/api/books/#{book.id}"
+      expect(response).to have_http_status(:success)
+      
+      hash_body = JSON.parse(response.body).with_indifferent_access
+
       expect(hash_body).to include({
         id: book.id,
         title: book.title,
@@ -17,6 +16,13 @@ RSpec.describe Api::BooksController, type: :api do
         summary: book.summary,
         year: book.year
       })
+    end
+    
+    it 'creates a book' do 
+      book = build(:book)
+      post "/api/books", params: { book:  { title: book.title, summary: book.summary, year: book.year, pages: book.pages} }
+      expect(response).to have_http_status(:created)
+      expect(Book.find(JSON.parse(response.body)["id"])).to be_truthy
     end
   end
 end
