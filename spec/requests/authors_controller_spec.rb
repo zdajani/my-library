@@ -13,7 +13,8 @@ RSpec.describe Api::AuthorsController, type: :request do
       expect(hash_body).to include({
         id: author.id,
         first_name: author.first_name,
-        last_name: author.last_name
+        last_name: author.last_name,
+        books: author.books.select('id', 'title').to_a.map(&:serializable_hash),
       })
     end
   end
