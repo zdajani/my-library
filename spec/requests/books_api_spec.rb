@@ -24,5 +24,13 @@ RSpec.describe Api::BooksController, type: :request do
       expect(response).to have_http_status(:created)
       expect(Book.find(JSON.parse(response.body)["id"])).to be_truthy
     end
+    
+    it 'returns all books' do 
+      create_list(:book, 10)
+      get "/api/books"
+      
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body).size).to eq(10)
+    end
   end
 end
