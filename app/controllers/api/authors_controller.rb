@@ -3,7 +3,7 @@ class Api::AuthorsController < ApplicationController
   
   def index
     @authors = Author.all
-    render json: @authors
+    render json: @authors.to_json(:include => {:books => { only: ['title', 'id']}})
   end
   
   def show
