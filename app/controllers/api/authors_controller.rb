@@ -1,6 +1,11 @@
 class Api::AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :update, :destroy]
   
+  def index
+    @authors = Author.all
+    render json: @authors
+  end
+  
   def show
     render json: @author.to_json(:include => {:books => { only: ['title', 'id']}})
   end

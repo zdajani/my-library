@@ -29,5 +29,13 @@ RSpec.describe Api::AuthorsController, type: :request do
     
       expect(created_author.books.exists?(id: [book.id])).to be_truthy
     end
+    
+    it 'returns all authors' do 
+      auth = create_list(:author_with_book, 10)
+      get "/api/authors"
+      
+      expect(response).to have_http_status(:success)
+      expect(JSON.parse(response.body).size).to eq(10)
+    end
   end
 end
