@@ -5,10 +5,11 @@ import reduxThunk from 'redux-thunk';
 
 import reducers from './rootReducer';
 
-export const history = createHistory();
+const history = createHistory();
 
 const middleware = routerMiddleware(history);
 const createStoreWithMiddleware = applyMiddleware(middleware, reduxThunk)(createStore);
 
-export const store = createStoreWithMiddleware(reducers);
+const store = createStoreWithMiddleware(reducers);
 
+export { store, history };
